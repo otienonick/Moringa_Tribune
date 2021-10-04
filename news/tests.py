@@ -10,7 +10,7 @@ class EditorTestClass(TestCase):
 
     # Set up method
     def setUp(self):
-        self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com')
+        self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com',phone_number = '0778250250')
 
 
     # Testing  instance
@@ -30,8 +30,8 @@ class ArticleTestClass(TestCase):
         def setUp(self):
  
             # Creating a new editor 
-            self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com')
-            self.new_article= Article(title = 'Test Article',post = 'This is a random test Post',editor = self.nick , pub_date = '22-05-2015' )
+            self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com',phone_number = '0778250250')
+            self.new_article= Article(title = 'Test Article',post = 'This is a random test Post',editor = self.nick , pub_date = '22-05-2015')
 
             # Creating a new tag 
             self.new_tag = tags(name = 'testing')
