@@ -2,4 +2,36 @@
 
 {% block content %}
 {{block.super}}
+
+<div class="container">
+
+    <!-- Looping through news   -->
+    {% for news_item in news %}
+  
+     <div class="row m-2">
+        <div class="col-md-6">
+
+
+    <div class="card text-center">
+        <div class="card-header">
+        <h5 class="card-title">{{ news_item.title }}</h5>
+        
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ news_item.post }} </p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted by : {{ news_item.editor }}
+        </div>
+      </div>
+      </div>
+      </div>
+  
+    {% empty %}
+    <div class="row">
+      <h2 class="text-center">There are  No News Items</h2>
+    </div>
+    {% endfor %}
+  
+  </div>
 {% endblock %}

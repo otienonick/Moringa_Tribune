@@ -1,8 +1,6 @@
 from django.db import models
 import datetime as dt
 
-
-
 # Create your models here.
 class Editor(models.Model):
     first_name = models.CharField(max_length = 30)
@@ -10,16 +8,14 @@ class Editor(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length = 10,blank =True)
 
-
     def __str__(self):
         return self.first_name
 
     def save_editor(self):
         self.save() 
-        
-          
+             
     class meta:
-        ordering =['first_name']
+        ordering = ['first_name']
   
 
 class tags(models.Model):
@@ -35,13 +31,29 @@ class Article(models.Model):
     editor = models.ForeignKey(Editor, on_delete = models.CASCADE)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+    article_image = models.ImageField(upload_to = 'articles/')
+
 
     def __str__(self):
         return self.title
-
-    
   
 #  DateTimeField to store the exact date and time our article was posted
 #  We pass in the argument auto_now_add and equate it to True. This will automatically save the exact time and date to the database as soon as we save that model.
 
+    @classmethod
+    def todays_news(cls):
+        today = dt.date.today()
+        news = cls.objects.filter(pub_date__date = today)
+        return news
+
+    @classmethod
+    def days_news(cls,date):
+        news = cls.objects.filter(pub_date__date = date)
+        return news
+
+    @classmethod
+    def search_by_title(cls,search_term):
+        news = cls.objects.filter(title__icontains = search_term)   
+        # We filter the model data using the __icontains query filter
+        return news 
    

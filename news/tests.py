@@ -27,40 +27,35 @@ class EditorTestClass(TestCase):
 
 class ArticleTestClass(TestCase):
 
-        def setUp(self):
- 
-            # Creating a new editor 
-            self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com',phone_number = '0778250250')
-            self.new_article= Article(title = 'Test Article',post = 'This is a random test Post',editor = self.nick , pub_date = '22-05-2015')
+    def setUp(self):
+        # Creating a new editor and saving it
+        self.nick = Editor(first_name = 'Nick', last_name ='Otieno', email ='nick@moringaschool.com',phone_number = '0778250250')
+        self.nick.save_editor()
 
-            # Creating a new tag 
-            self.new_tag = tags(name = 'testing')
+        # Creating a new tag and saving it
+        self.new_tag = tags(name = 'testing')
+        self.new_tag.save()
 
-        # Testing  instance
+        self.new_article = Article(title = 'Test Article',post = 'This is a random test Post',editor = self.nick)
+        self.new_article.save()
 
-        def test_instance(self):
-            self.assertTrue(isinstance(self.new_article,Article))  
+        self.new_article.tags.add(self.new_tag)
 
-        def test_save_article(self):
-            self.nick.save_editor()
-            self.new_article.save()
-            self.new_tag.save()
-
-        def tearDown(self):
-            Editor.objects.all().delete()
-            tags.objects.all().delete()
-            Article.objects.all().delete()
-
-        def test_delete_articles(self):
-            Editor.objects.all().delete()
-            tags.objects.all().delete()
-            Article.objects.all().delete()
-
+    def tearDown(self):
+        Editor.objects.all().delete()
+        tags.objects.all().delete()
+        Article.objects.all().delete()
       
         
+    def test_get_news_today(self):
+        today_news = Article.todays_news()
+        self.assertTrue(len(today_news)>0)
 
-
-
+    def test_get_news_by_date(self):
+        test_date = '2021-10-04'
+        date = dt.datetime.strptime(test_date, '%Y-%m-%d').date()
+        news_by_date = Article.days_news(date)
+        self.assertTrue(len(news_by_date) == 0)
      
 
 
