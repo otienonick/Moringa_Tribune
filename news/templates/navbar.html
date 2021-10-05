@@ -10,7 +10,7 @@
         <div class="container-fluid">
           <a class="navbar-brand text-white" href="{% url 'newsToday' %}">The Moringa Tribune</a>
 
-          <form class="d-flex" role="search" action="{% url 'search_results' %}">
+          <form class="d-flex" role="search" action = "{% url 'search_results' %}">
             <input type="text" class="form-control" placeholder="Search Article" name="article">
             <button class="btn btn-dark mx-2" type="submit"><i class="bi bi-search"></i>
             </button>

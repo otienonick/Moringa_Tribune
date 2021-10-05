@@ -1,0 +1,27 @@
+{%extends 'all-news/base.html'%}
+
+ {% block content %}
+ <center>
+
+ <div class="container">
+
+   <div class="row col-md-6 mt-5 ">
+     <img src="{{article.article_image.url}}"  class="img-fluid" alt="">
+   </div>
+
+   <div class="row col-md-6">
+     <h1 class="text-center">{{article.title}}</h1>
+   </div>
+
+   <div class="row col-md-6">
+     <p>{{article.post}}</p>
+   </div>
+
+   <div class="row col-md-6">
+     <p>Posted {{article.pub_date|timesince}} ago by {{article.editor.first_name}}</p>
+   </div>
+
+ </div>
+ </center>
+
+ {% endblock %}

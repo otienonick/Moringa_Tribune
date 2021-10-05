@@ -15,11 +15,17 @@
         <div class="card-header">
             <h5 class="card-title">{{ news_item.title }}</h5>
         </div>
+        {%if news_item.article_image%}
+        <img src="{{news_item.article_image.url}}" class="card-img-top img-fluid" alt="images">
+        {%else%}
+
+        {%endif%}
         <div class="card-body">
           <p class="card-text">{{ news_item.post }} </p>
         </div>
         <div class="card-footer text-muted">
-            Posted by : {{ news_item.editor }}
+            <p>Posted {{news_item.pub_date|timesince}} ago by {{news_item.editor.first_name}}</p>
+
         </div>
       </div>
       </div>

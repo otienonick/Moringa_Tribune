@@ -21,7 +21,7 @@
           <p class="card-text">{{ news_item.post }} </p>
         </div>
         <div class="card-footer text-muted">
-            Posted by : {{ news_item.editor }}
+          <p>Posted {{news_item.pub_date|timesince}} ago by {{news_item.editor.first_name}}</p>
         </div>
       </div>
       </div>
