@@ -56,4 +56,7 @@ class Article(models.Model):
         news = cls.objects.filter(title__icontains = search_term)   
         # We filter the model data using the __icontains query filter
         return news 
-   
+
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()

@@ -1,32 +1,47 @@
 {%extends 'all-news/base.html'%}
+{% load bootstrap5 %}
+
 
 {% block content %}
 {{block.super}}   
 <!-- allows us to use any content that was defined inside a block in the parent template -->
 <div class="container">
 
+
+           <!-- Modal -->
+           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  {% for news_item in news %}
+                  <img src="{{news_item.article_image.url}}"  class="img-fluid"  alt="images">
+                  {%endfor%}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">copy image link</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
     <!-- Looping through news   -->
     {% for news_item in news %}
     <div class="row">
         <div class="col-md-6 m-2">
-
-
     <div class="card text-center">
         <div class="card-header">
             <h5 class="card-title">{{ news_item.title }}</h5>
         </div>
         {%if news_item.article_image%}
-        <img src="{{news_item.article_image.url}}" class="card-img-top img-fluid" alt="images">
-        {%else%}
+       <img src="{{news_item.article_image.url}}"  class="card-img-top img-fluid" data-bs-toggle="modal" data-bs-target="#exampleModal" alt="images">
 
         {%endif%}
-        <div class="card-body">
-          <p class="card-text">{{ news_item.post }} </p>
-        </div>
-        <div class="card-footer text-muted">
-            <p>Posted {{news_item.pub_date|timesince}} ago by {{news_item.editor.first_name}}</p>
-
-        </div>
+    
       </div>
       </div>
       </div>
@@ -35,5 +50,12 @@
       <h2 class="text-center">There are  No News Items</h2>
     </div>
     {% endfor %}
+    <div class="container-fluid">
+      <form  action="{%url 'newsToday'%}" method="post">
+        {%csrf_token%}
+        {% bootstrap_form letterForm layout='inline' %}
+        <input type="submit" class="btn btn-outline-success" value="Subscribe">
+      </form>
+    </div>
   </div>
 {% endblock %}
